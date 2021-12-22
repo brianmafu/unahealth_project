@@ -1,5 +1,4 @@
-# unahealth_project
-Una Health Project
+# Una Health Project
 ## Setup
 
 The first thing to do is to clone the repository:
