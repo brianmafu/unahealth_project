@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Una Health Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color:#435165;">
+
+  
+<div class="container">
+<div class="row flex-lg-nowrap">
+  <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+  </div>
+
+  <div class="col">
+
+    </span>
+    <div class="row flex-lg-nowrap">
+      <div class="col mb-3">
+        <div class="e-panel card">
+          <div class="card-body">
+            <div class="card-title">
+              <ul class="nav ml-auto">
+                <li class="nav-item">
+                </li>
+                <ul class="navbar-nav ml-auto">
+                <label for="users">Filter by User ID:</label>
+
+                <select id="users">
+                  {% for user in users %}
+                  <option>{{user.id}}</option>
+                  {% endfor %}
+                </select>
+                 </ul>
+                 <ul class="navbar-nav ml-auto">
+                </ul>
+              </ul>
+            </div>
+
+            <div">
+              <div class="table-responsive table-lg mt-4">
+                <table  class="table table-hover" id="sortableTable">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Serial Number</th>
+                      <th>Device Name</th>
+                      <th>TimeStamp</th>
+                      <th>Recording Type</th>
+                      <th>History</th>
+                      <th>Scan</th>
+                      <th>User</th>
+                       </tr>
+                  </thead>
+                  <tbody>
+                    {% for level in levels %}
+
+                    <tr scope="row">
+                      <td class="text-nowrap align-center">
+                        {{loop.index}}
+                      </td>
+                      <td><span>{{level.seriennummer}}</span></td>
+                      <td><span>{{level.gerat}}</span></td>
+                      <td><span>{{level.geratezeitstempel}}</span></td>
+                      <td><span>{{level.aufzeichnungstyp}}</span></td>
+                      <td><span>{{level.glukosewert_verlauf}}</span></td>
+                      <td><span>{{level.glukose_scan}}</span></td>
+                      <td><span>{{level.user}}</span></td>
+
+
+                    {%endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 mb-3">
+        <div class="card">
+
+      </div>
+    </div
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<style type="text/css">
+body{
+    margin-top:20px;
+    background:#f8f8f8
+}
+table.dataTable thead th {
+  position: relative;
+  background-image: none !important;
+}
+
+table.dataTable thead th.sorting:after,
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+  position: absolute;
+  top: 12px;
+  right: 8px;
+  display: block;
+  font-family: FontAwesome;
+}
+
+</style>
+
+<script type="text/javascript">
+
+    $('#sortableTable').DataTable({
+      "searching": false,
+      "paging:": false,
+      "info":false,
+      "lengthChange": false,
+      "ordering": false,
+
+
+    });
+
+    $('#users').change(function() {
+      console.log("something selected")
+      const options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      };
+
+      fetch("?trigger_url=/api/v1/levels/?user_id="+$("#users").val(), options).
+      then((response)=>response.json()).
+      then((result)=>{
+      }).catch((e)=>{
+        console.log(e)
+      })
+
+
+
+    
+    });
+
+
+</script>
+</body>
+</html>

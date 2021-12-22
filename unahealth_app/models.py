@@ -77,7 +77,7 @@ class GlucoseLevel(models.Model):
         default = uuid.uuid4,
         editable = False,
     )  
-    # device
+    # device name
     gerat = models.CharField(max_length=200)
     # device timestamp
     geratezeitstempel = models.DateTimeField(auto_now_add=True)

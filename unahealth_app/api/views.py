@@ -8,6 +8,8 @@ from unahealth_app.models import GlucoseLevel
 
 
 
+# API Views
+
 # Glucose Level List view
 
 # Use class-based view
@@ -17,7 +19,6 @@ class GlucoseLevelListView(generics.ListCreateAPIView):
     def get_queryset(self):
         user_id = self.request.query_params.get('user_id', None)
         if user_id:
-            print("we here bro")
             levels = GlucoseLevel.objects.filter(user__id=int(user_id))
         else:
             # eitherwise return all of them
